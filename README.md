@@ -13,7 +13,7 @@ pip install opencv-python pillow numpy
 
 1. Run the application:
 ```
-python rally_cutter.py
+python cut_rallies.py
 ```
 
 2. Click "Load Video" to select a video file
