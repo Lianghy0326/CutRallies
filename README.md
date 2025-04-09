@@ -1,5 +1,6 @@
 # CutRallies
 A simple video tool for marking rally segments in sports videos.
+![CutRallies](./CutRallyDemo.png)
 
 ## Installation
 
