@@ -11,7 +11,8 @@ class RallyCutterApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Rally Cutter Tool")
-        self.root.geometry("1600x1000")
+        # self.root.geometry("2000x1600")
+        self.root.geometry("1080x720")
         
         # 影片變量
         self.video_path = None
@@ -23,7 +24,7 @@ class RallyCutterApp:
         self.rally_markers = []  # 存儲格式: [{'start_frame': x, 'end_frame': y, 'start_time': 'xx:xx:xx', 'end_time': 'xx:xx:xx'}]
         self.current_rally = None  # 當前正在標記的回合
         self.video_width = 1600  # 默認影片寬度
-        self.video_height = 1200  # 默認影片高度
+        self.video_height = 1500  # 默認影片高度
         
         # 創建UI組件
         self.create_ui()
@@ -44,7 +45,7 @@ class RallyCutterApp:
         
         # 使用 grid 佈局
         main_frame.grid_rowconfigure(0, weight=0)  # 控制區 (固定高度)
-        main_frame.grid_rowconfigure(1, weight=10)  # video 區 (可擴展)
+        main_frame.grid_rowconfigure(1, weight=20)  # video 區 (可擴展)
         main_frame.grid_rowconfigure(2, weight=0)  # 進度條 (固定高度)
         main_frame.grid_rowconfigure(3, weight=0)  # 時間顯示 (固定高度)
         main_frame.grid_rowconfigure(4, weight=0)  # 回合標記 (固定高度，可調整)
@@ -116,10 +117,12 @@ class RallyCutterApp:
         # 回合標記列表
         markers_frame = ttk.LabelFrame(main_frame, text="回合標記")
         markers_frame.grid(row=4, column=0, sticky="ew", pady=5, ipady=5)
+        table_container = ttk.Frame(markers_frame, height=100)  # 限制高度為100像素
+        table_container.pack_propagate(False)  # 阻止子元件影響容器大小
 
         # 創建表格
         columns = ('num', 'start_time', 'end_time', 'duration', 'start_frame', 'end_frame')
-        self.marker_tree = ttk.Treeview(markers_frame, columns=columns, show='headings')
+        self.marker_tree = ttk.Treeview(markers_frame, columns=columns, show='headings', height=4)
         
         # 設置 Header
         self.marker_tree.heading('num', text='#')
@@ -150,15 +153,8 @@ class RallyCutterApp:
         help_frame.grid(row=5, column=0, sticky="ew", pady=5, ipady=5)
 
         help_text = """
-        S 鍵: 標記回合開始
-        D 鍵: 標記回合結束
-        P 鍵: 播放/暫停
-        E 鍵: 導出CSV
-        →: 前進1幀
-        ←: 後退1幀
-        ↑: 前進10幀
-        ↓: 後退10幀
-        P: 播放/暫停
+        S 鍵: 標記回合開始,D 鍵: 標記回合結束, P 鍵: 播放/暫停, E 鍵: 導出CSV
+        →: 前進1幀  ←: 後退1幀   ↑: 前進10幀  ↓: 後退10幀  
         Backspace: 刪除最後標記
         """
         help_label = ttk.Label(help_frame, text=help_text)
