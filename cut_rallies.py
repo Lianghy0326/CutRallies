@@ -13,7 +13,7 @@ class RallyCutterApp:
         self.root.title("Rally Cutter Tool")
         self.root.geometry("1600x1000")
         
-        # 視頻變量
+        # 影片變量
         self.video_path = None
         self.cap = None
         self.total_frames = 0
@@ -22,8 +22,8 @@ class RallyCutterApp:
         self.play_status = False
         self.rally_markers = []  # 存儲格式: [{'start_frame': x, 'end_frame': y, 'start_time': 'xx:xx:xx', 'end_time': 'xx:xx:xx'}]
         self.current_rally = None  # 當前正在標記的回合
-        self.video_width = 1600  # 默認視頻寬度
-        self.video_height = 1200  # 默認視頻高度
+        self.video_width = 1600  # 默認影片寬度
+        self.video_height = 1200  # 默認影片高度
         
         # 創建UI組件
         self.create_ui()
@@ -35,7 +35,7 @@ class RallyCutterApp:
         self.root.bind('<Configure>', self.on_window_resize)
         
         # 更新状态
-        self.update_status("歡迎使用Rally切割工具。請加載視頻文件開始。")
+        self.update_status("歡迎使用Rally切割工具。請加載影片文件開始。")
         
     def create_ui(self):
         # 主布局
@@ -56,7 +56,7 @@ class RallyCutterApp:
         control_frame = ttk.Frame(main_frame)
         control_frame.grid(row=0, column=0, sticky="ew", pady=5)
         
-        # 加載視頻按鈕
+        # 加載影片按鈕
         load_btn = ttk.Button(control_frame, text="加載影片", command=self.load_video)
         load_btn.pack(side=tk.LEFT, padx=5)
         
@@ -186,7 +186,7 @@ class RallyCutterApp:
     
     def load_video(self):
         file_path = filedialog.askopenfilename(
-            title="選擇視頻文件",
+            title="選擇影片文件",
             filetypes=(("Video files", "*.mp4 *.avi *.mov *.mkv"), ("All files", "*.*"))
         )
         
@@ -206,13 +206,13 @@ class RallyCutterApp:
         for i in self.marker_tree.get_children():
             self.marker_tree.delete(i)
             
-        # 打開視頻
+        # 打開影片
         self.cap = cv2.VideoCapture(file_path)
         if not self.cap.isOpened():
-            self.update_status("無法打開視頻文件")
+            self.update_status("無法打開影片文件")
             return
             
-        # 獲取視頻信息
+        # 獲取影片信息
         self.total_frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
         self.fps = self.cap.get(cv2.CAP_PROP_FPS)
         self.video_width = int(self.cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -227,7 +227,7 @@ class RallyCutterApp:
         
         # 更新狀態
         video_name = os.path.basename(file_path)
-        self.update_status(f"已加載視頻: {video_name} ({self.video_width}x{self.video_height}, {self.fps:.2f} FPS, {self.total_frames} 幀)")
+        self.update_status(f"已加載影片: {video_name} ({self.video_width}x{self.video_height}, {self.fps:.2f} FPS, {self.total_frames} 幀)")
         
         # 顯示第一幀
         self.seek_frame(0)
@@ -272,7 +272,7 @@ class RallyCutterApp:
         # 確保幀數在有效範圍內
         frame_num = max(0, min(frame_num, self.total_frames - 1))
         
-        # 設置視頻位置
+        # 影片位置
         self.cap.set(cv2.CAP_PROP_POS_FRAMES, frame_num)
         ret, frame = self.cap.read()
         
