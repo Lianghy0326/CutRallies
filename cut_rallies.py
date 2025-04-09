@@ -34,7 +34,7 @@ class RallyCutterApp:
         # 綁定窗口大小變化事件
         self.root.bind('<Configure>', self.on_window_resize)
         
-        # 更新状态
+        # 更新狀態欄
         self.update_status("歡迎使用Rally切割工具。請加載影片文件開始。")
         
     def create_ui(self):
