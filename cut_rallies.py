@@ -76,7 +76,7 @@ class RallyCutterApp:
         self.mark_btn = ttk.Button(control_frame, text="標記回合開始 (S)", command=self.start_marker)
         self.mark_btn.pack(side=tk.LEFT, padx=5)
         
-        # 標記按鈕
+        # # 標記按鈕
         self.mark_btn = ttk.Button(control_frame, text="標記回合結束 (D)", command=self.end_marker)
         self.mark_btn.pack(side=tk.LEFT, padx=5)
         
@@ -368,7 +368,7 @@ class RallyCutterApp:
             'end_frame': None,
             'end_time': None
         }
-        self.mark_btn.configure(text="標記回合結束 (D)")
+        # self.mark_btn.configure(text="標記回合結束 (D)")
         self.update_status(f"已標記回合 #{len(self.rally_markers) + 1} 開始於 {current_time} (幀 {self.current_frame})")
 
     def end_marker(self):
@@ -409,8 +409,10 @@ class RallyCutterApp:
         )
 
         self.current_rally = None
-        self.mark_btn.configure(text="標記回合開始")
-        self.update_status(f"已標記回合 #{len(self.rally_markers)} 結束於 {current_time} (幀 {self.current_frame})")      
+        # self.mark_btn.configure(text="標記回合開始 (S)")
+        self.update_status(f"已標記回合 #{len(self.rally_markers)} 結束於 {current_time} (幀 {self.current_frame})") 
+        
+             
     def format_duration(self, seconds):
         minutes = int(seconds // 60)
         secs = int(seconds % 60)
